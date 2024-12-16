@@ -2,9 +2,9 @@ from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import os
 from werkzeug.utils import secure_filename
-from app.model_handler import ModelHandler
-from app.diagnosis_data import DiagnosisData
-from app.config import Config
+from model_handler import ModelHandler
+from diagnosis_data import DiagnosisData
+from config import Config
 import logging
 from datetime import datetime
 
@@ -47,6 +47,9 @@ def analyze_image():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            
+            # Add debug logging
+            print(f"Saving file to: {filepath}")
             file.save(filepath)
             
             # Process image
@@ -56,7 +59,9 @@ def analyze_image():
                 
             predictions = model_handler.predict(image_tensor)
             
-            # Prepare response data
+            # Add debug logging
+            print(f"Predictions: {predictions}")
+            
             response_data = {
                 'predictions': predictions,
                 'findings': DiagnosisData.FINDINGS_MAP.get(predictions[0][0].lower(), []),
@@ -68,7 +73,7 @@ def analyze_image():
             return jsonify(response_data)
             
     except Exception as e:
-        logger.error(f"Error processing request: {str(e)}")
+        print(f"Error: {str(e)}")  # Add debug logging
         return jsonify({'error': str(e)}), 500
 
 @app.errorhandler(404)

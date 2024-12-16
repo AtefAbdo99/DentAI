@@ -4,7 +4,7 @@ class DentalAnalyzer {
             console.error('Required dependencies are missing');
             return;
         }
-        this.apiUrl = 'http://localhost:5000/api';
+        this.apiUrl = '/api';  // This will use relative path instead of hardcoded localhost
         this.cases = [];
         this.eventListeners = new Map();
 

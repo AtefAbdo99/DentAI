@@ -1,120 +1,57 @@
 class DiagnosisData:
     FINDINGS_MAP = {
-        'nil control': ['No pathological findings', 'Normal anatomical structures'],
-        'condensing osteitis': [
-            'Increased bone density around tooth apex',
-            'Localized sclerotic bone response',
-            'Associated with chronic low-grade pulpal inflammation'
-        ],
-        'diffuse lesion': [
-            'Poorly defined radiolucent area',
-            'Irregular borders',
-            'Possible bone infiltration'
-        ],
-        'periapical abscess': [
-            'Well-defined radiolucent area around tooth apex',
-            'Possible loss of lamina dura',
-            'Widening of periodontal ligament space'
-        ],
-        'periapical granuloma': [
-            'Small well-defined radiolucent lesion',
-            'Usually less than 1cm in diameter',
-            'Associated with non-vital tooth'
-        ],
-        'periapical widening': [
-            'Increased periodontal ligament space',
-            'Continuous with lamina dura',
-            'Early sign of periapical pathology'
-        ],
-        'pericoronitis': [
-            'Soft tissue inflammation around partially erupted tooth',
-            'Usually associated with third molars',
-            'Possible bone loss pattern'
-        ],
-        'radicular cyst': [
-            'Well-defined radiolucent lesion',
-            'Usually larger than 1cm in diameter',
-            'Sclerotic border present'
-        ]
+        'nil control': ['No significant pathological findings'],
+        'condensing osteitis': ['Dense bone formation', 'Localized bone sclerosis'],
+        'diffuse lesion': ['Widespread bone changes', 'Multiple affected areas'],
+        'periapical abcess': ['Radiolucent area around root tip', 'Bone destruction'],
+        'periapical granuloma': ['Small radiolucent lesion at root apex'],
+        'periapical widening': ['Widened periodontal ligament space'],
+        'pericoronitis': ['Soft tissue inflammation around partially erupted tooth'],
+        'radicular cyst': ['Well-defined radiolucent lesion', 'Root resorption possible']
     }
     
     RECOMMENDATIONS_MAP = {
-        'nil control': ['Regular dental check-ups', 'Maintain good oral hygiene'],
-        'condensing osteitis': [
-            'Endodontic evaluation recommended',
-            'Monitor for changes in symptoms',
-            'Consider vitality testing'
-        ],
-        'diffuse lesion': [
-            'Immediate specialist referral',
-            'Biopsy may be necessary',
-            'Further imaging recommended'
-        ],
-        'periapical abscess': [
-            'Urgent endodontic treatment required',
-            'Possible antibiotic therapy',
-            'Pain management as needed'
-        ],
-        'periapical granuloma': [
-            'Root canal treatment indicated',
-            'Regular follow-up required',
-            'Monitor for healing progress'
-        ],
-        'periapical widening': [
-            'Clinical correlation needed',
-            'Vitality testing recommended',
-            'Monitor for progression'
-        ],
-        'pericoronitis': [
-            'Oral hygiene instruction',
-            'Consider extraction if recurrent',
-            'Chlorhexidine rinses recommended'
-        ],
-        'radicular cyst': [
-            'Surgical evaluation needed',
-            'Endodontic treatment required',
-            'Regular radiographic follow-up'
-        ]
+        'nil control': ['Regular dental check-ups'],
+        'condensing osteitis': ['Endodontic evaluation', 'Monitor for changes'],
+        'diffuse lesion': ['Comprehensive examination', 'Biopsy may be needed'],
+        'periapical abcess': ['Immediate dental intervention', 'Root canal or extraction'],
+        'periapical granuloma': ['Endodontic treatment', 'Regular monitoring'],
+        'periapical widening': ['Dental evaluation', 'Possible endodontic treatment'],
+        'pericoronitis': ['Oral hygiene instruction', 'Possible extraction'],
+        'radicular cyst': ['Surgical evaluation', 'Endodontic treatment']
     }
     
     MANAGEMENT_MAP = {
         'nil control': {
-            'follow_up': '6-12 months routine check-up',
-            'imaging': 'Routine radiographs as needed'
+            'immediate': ['Continue regular dental hygiene'],
+            'long_term': ['Regular check-ups']
         },
         'condensing osteitis': {
-            'primary': 'Endodontic treatment',
-            'follow_up': '3-6 months',
-            'imaging': 'Follow-up radiographs at 6 months'
+            'immediate': ['Pain management if needed'],
+            'long_term': ['Root canal treatment if symptomatic']
         },
         'diffuse lesion': {
-            'primary': 'Specialist referral',
-            'follow_up': '2-4 weeks',
-            'imaging': 'Advanced imaging (CBCT) recommended'
+            'immediate': ['Further diagnostic tests'],
+            'long_term': ['Treatment based on diagnosis']
         },
-        'periapical abscess': {
-            'primary': 'Emergency endodontic treatment',
-            'medication': 'Antibiotics if indicated',
-            'follow_up': '1 week'
+        'periapical abcess': {
+            'immediate': ['Antibiotics', 'Drainage if needed'],
+            'long_term': ['Root canal or extraction']
         },
         'periapical granuloma': {
-            'primary': 'Root canal treatment',
-            'follow_up': '3 months',
-            'imaging': 'Follow-up radiographs at 6 months'
+            'immediate': ['Pain management'],
+            'long_term': ['Root canal treatment']
         },
         'periapical widening': {
-            'primary': 'Clinical assessment',
-            'follow_up': '2-4 weeks',
-            'monitoring': 'Regular vitality testing'
+            'immediate': ['Identify cause'],
+            'long_term': ['Treat underlying condition']
         },
         'pericoronitis': {
-            'primary': 'Local debridement',
-            'medication': 'Chlorhexidine rinses',
-            'follow_up': '1-2 weeks'
+            'immediate': ['Irrigation', 'Antibiotics if needed'],
+            'long_term': ['Possible extraction']
         },
         'radicular cyst': {
-            'primary': 'Surgical enucleation',
-            'secondary': 'Endodontic treatment',
-            'follow_up': '3-6 months'
+            'immediate': ['Pain management'],
+            'long_term': ['Surgical removal or root canal']
         }
     } 

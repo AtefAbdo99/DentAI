@@ -2,7 +2,6 @@
 Handles all model-related operations and predictions for the dental X-ray analyzer.
 """
 
-import os
 import torch
 import torch.nn.functional as F
 from torchvision import models
@@ -13,6 +12,7 @@ from albumentations.pytorch import ToTensorV2
 from PyQt6.QtCore import QThread, pyqtSignal
 from typing import List, Tuple, Optional
 import logging
+import os
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

@@ -3,8 +3,8 @@ from flask_cors import CORS
 import os
 from werkzeug.utils import secure_filename
 from app.model_handler import ModelHandler
-from diagnosis_data import DiagnosisData
-from config import Config
+from app.diagnosis_data import DiagnosisData
+from app.config import Config
 import logging
 from datetime import datetime
 

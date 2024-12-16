@@ -23,8 +23,8 @@ logger = logging.getLogger(__name__)
 # Initialize model
 try:
     model_handler = ModelHandler(Config.MODEL_PATH)
-except FileNotFoundError:
-    logger.warning(f"Model file not found at {Config.MODEL_PATH}. Using dummy model for testing.")
+except Exception as e:
+    logger.warning(f"Failed to load model: {str(e)}. Using dummy model for testing.")
     model_handler = ModelHandler.get_dummy_model()
 
 def allowed_file(filename):

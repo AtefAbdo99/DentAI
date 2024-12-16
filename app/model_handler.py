@@ -117,48 +117,26 @@ class ModelHandler:
             logger.error(f"Error during prediction: {str(e)}")
             return [("Error", 0.0)]
 
-    @classmethod
-    def get_dummy_model(cls):
-        """Return a dummy model for testing purposes"""
-        instance = cls.__new__(cls)
-        instance.device = torch.device('cpu')
-        instance.model_path = None
-        instance.class_names = [
-            'nil control', 
-            'condensing osteitis', 
-            'diffuse lesion', 
-            'periapical abcess', 
-            'periapical granuloma', 
-            'periapical widening', 
-            'pericoronitis', 
-            'radicular cyst'
-        ]
-        
-        instance.transform = A.Compose([
-            A.Resize(224, 224),
-            A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
-            ToTensorV2()
-        ])
-        
-        # Dummy model that always returns the same prediction
-        instance.model = type('DummyModel', (), {
-            'eval': lambda: None,
-            'to': lambda device: None,
-            'forward': lambda x: torch.tensor([[0.8, 0.1, 0.1]])
-        })()
-        
-        return instance
-
     @staticmethod
     def get_dummy_model():
         """Create a dummy model for testing purposes."""
         class DummyModel(torch.nn.Module):
             def __init__(self):
                 super().__init__()
+                self.class_names = [
+                    'Nil control', 
+                    'condensing osteitis', 
+                    'diffuse lesion', 
+                    'periapical abcess', 
+                    'periapical granuloma', 
+                    'periapical widening', 
+                    'pericoronitis', 
+                    'radicular cyst'
+                ]
                 
             def forward(self, x):
                 batch_size = x.shape[0] if isinstance(x, torch.Tensor) else 1
-                return torch.ones(batch_size, 2)  # Adjust number of classes as needed
+                return torch.ones(batch_size, len(self.class_names))
                 
             def eval(self):
                 return self
@@ -166,7 +144,19 @@ class ModelHandler:
             def to(self, device):
                 return self
 
-        return DummyModel()
+        model = DummyModel()
+        handler = ModelHandler.__new__(ModelHandler)
+        handler.device = torch.device('cpu')
+        handler.model_path = None
+        handler.class_names = model.class_names
+        handler.transform = A.Compose([
+            A.Resize(224, 224),
+            A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+            ToTensorV2()
+        ])
+        handler.model = model
+        
+        return handler
 
 class PredictionWorker(QThread):
     """Worker thread for handling predictions."""

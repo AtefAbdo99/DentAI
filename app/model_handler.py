@@ -120,6 +120,10 @@ class ModelHandler:
     @staticmethod
     def get_dummy_model():
         """Create a dummy model for testing purposes."""
+        import torch  # Import torch inside the method
+        import albumentations as A
+        from albumentations.pytorch import ToTensorV2
+        
         class DummyModel(torch.nn.Module):
             def __init__(self):
                 super().__init__()
@@ -136,7 +140,8 @@ class ModelHandler:
                 
             def forward(self, x):
                 batch_size = x.shape[0] if isinstance(x, torch.Tensor) else 1
-                return torch.ones(batch_size, len(self.class_names))
+                # Return a tensor with the correct number of classes
+                return torch.ones(batch_size, 8)  # 8 classes as per class_names
                 
             def eval(self):
                 return self
@@ -144,19 +149,31 @@ class ModelHandler:
             def to(self, device):
                 return self
 
-        model = DummyModel()
-        handler = ModelHandler.__new__(ModelHandler)
-        handler.device = torch.device('cpu')
-        handler.model_path = None
-        handler.class_names = model.class_names
-        handler.transform = A.Compose([
+        # Create a new instance
+        dummy = ModelHandler.__new__(ModelHandler)
+        
+        # Initialize required attributes
+        dummy.device = torch.device('cpu')
+        dummy.model_path = None
+        dummy.class_names = [
+            'Nil control', 
+            'condensing osteitis', 
+            'diffuse lesion', 
+            'periapical abcess', 
+            'periapical granuloma', 
+            'periapical widening', 
+            'pericoronitis', 
+            'radicular cyst'
+        ]
+        
+        dummy.transform = A.Compose([
             A.Resize(224, 224),
             A.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
             ToTensorV2()
         ])
-        handler.model = model
         
-        return handler
+        dummy.model = DummyModel()
+        return dummy
 
 class PredictionWorker(QThread):
     """Worker thread for handling predictions."""
